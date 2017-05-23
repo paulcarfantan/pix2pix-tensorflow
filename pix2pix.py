@@ -1,3 +1,9 @@
+"""
+pix2pix.py
+
+@author: paul
+"""
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -239,10 +245,10 @@ def load_examples():
     if a.input_dir is None or not os.path.exists(a.input_dir):
         raise Exception("input_dir does not exist")
 
-    input_paths = glob.glob(os.path.join(a.input_dir, "*.jpg"))
+    input_paths = glob.glob(os.path.join(a.input_dir, "*.jpg"))      # liste de tous les fichiers disponibles dans le répertoire
     decode = tf.image.decode_jpeg
     if len(input_paths) == 0:
-        input_paths = glob.glob(os.path.join(a.input_dir, "*.png"))
+        input_paths = glob.glob(os.path.join(a.input_dir, "*.png"))    # cas où les fichiers sont en png
         decode = tf.image.decode_png
 
     if len(input_paths) == 0:
@@ -545,7 +551,7 @@ def main():
     if a.seed is None:
         a.seed = random.randint(0, 2**31 - 1)
 
-    tf.set_random_seed(a.seed)
+    tf.set_random_seed(a.seed)      # On fixe a.seed comme point de départ des algorithmes de génération aléatoire
     np.random.seed(a.seed)
     random.seed(a.seed)
 
@@ -567,7 +573,7 @@ def main():
         a.scale_size = CROP_SIZE
         a.flip = False
 
-    for k, v in a._get_kwargs():
+    for k, v in a._get_kwargs():         # keyword arguments
         print(k, "=", v)
 
     with open(os.path.join(a.output_dir, "options.json"), "w") as f:
